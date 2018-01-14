@@ -81,6 +81,11 @@ h1 {
     font-size: 33px;
 }
 
+.deck .card.not-match {
+  cursor: default;
+  background: #cc0214;
+  font-size: 33px;
+}
 /*
  * Styles for the Score Panel
  */
@@ -106,4 +111,18 @@ h1 {
 .score-panel .restart {
     float: right;
     cursor: pointer;
+}
+
+.container-two {
+  position: relative;
+}
+
+.popup {
+  position: fixed; /* Sit on top of the page content */
+    width: 50%; /* Full width (cover the whole page) */
+    height: 50%; /* Full height (cover the whole page) */
+    top: 10%;
+    left: 35%;
+    background-color: rgba(0,0,0,0.7);
+    display: none;
 }
