@@ -22,7 +22,6 @@
  ];
 
 /*
-
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
@@ -42,7 +41,6 @@ function dealingOutCards(cardList) {
     card.appendChild(iTag);
     playingField.appendChild(card);
   }
-
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -114,6 +112,7 @@ function checkMatch(firstCard, secondCard) {
   if(firstCard.querySelector("i").getAttribute("class") !== secondCard.querySelector("i").getAttribute("class")){
     return false;
   }
+
   return true;
 }
 
@@ -121,6 +120,7 @@ function preventDoubleClick(firstCard, secondCard) {
   if(firstCard.getAttribute("data-id") === secondCard.getAttribute("data-id")) {
     return true;
   }
+
   return false;
 }
 
@@ -131,6 +131,7 @@ function lockMatchingCards(card) {
 
 function clearOpenCardList(openCardList) {
   openCardList = [];
+
   return openCardList;
 }
 
