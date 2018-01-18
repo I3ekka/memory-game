@@ -22,7 +22,6 @@ let cardList = [
 ];
 
 /*
-
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
@@ -111,17 +110,19 @@ function openCard() {
 }
 
 function checkMatch(firstCard, secondCard) {
-    if (firstCard.querySelector("i").getAttribute("class") !== secondCard.querySelector("i").getAttribute("class")) {
-        return false;
-    }
-    return true;
+  if(firstCard.querySelector("i").getAttribute("class") !== secondCard.querySelector("i").getAttribute("class")){
+    return false;
+  }
+
+  return true;
 }
 
 function preventDoubleClick(firstCard, secondCard) {
-    if (firstCard.getAttribute("data-id") === secondCard.getAttribute("data-id")) {
-        return true;
-    }
-    return false;
+  if(firstCard.getAttribute("data-id") === secondCard.getAttribute("data-id")) {
+    return true;
+  }
+
+  return false;
 }
 
 function lockMatchingCards(card) {
@@ -130,8 +131,9 @@ function lockMatchingCards(card) {
 }
 
 function clearOpenCardList(openCardList) {
-    openCardList = [];
-    return openCardList;
+  openCardList = [];
+
+  return openCardList;
 }
 
 function markNotMatchingCard(card) {
