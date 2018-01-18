@@ -1,25 +1,25 @@
 /*
  * Create a list that holds all of your cards
  */
- let intervalToken = null;
- let cardList = [
-   "fa-diamond",
-   "fa-paper-plane-o",
-   "fa-anchor",
-   "fa-bolt",
-   "fa-cube",
-   "fa-leaf",
-   "fa-bicycle",
-   "fa-bomb",
-   "fa-diamond",
-   "fa-paper-plane-o",
-   "fa-anchor",
-   "fa-bolt",
-   "fa-cube",
-   "fa-leaf",
-   "fa-bicycle",
-   "fa-bomb",
- ];
+let intervalToken = null;
+let cardList = [
+    "fa-diamond",
+    "fa-paper-plane-o",
+    "fa-anchor",
+    "fa-bolt",
+    "fa-cube",
+    "fa-leaf",
+    "fa-bicycle",
+    "fa-bomb",
+    "fa-diamond",
+    "fa-paper-plane-o",
+    "fa-anchor",
+    "fa-bolt",
+    "fa-cube",
+    "fa-leaf",
+    "fa-bicycle",
+    "fa-bomb",
+];
 
 /*
 
@@ -31,23 +31,23 @@
 restartGame(cardList);
 
 function dealingOutCards(cardList) {
-  const playingField = document.querySelector(".deck");
+    const playingField = document.querySelector(".deck");
 
-  for (let [index, icon] of shuffledCardList.entries()) {
-    let card = document.createElement("li");
-    card.setAttribute("class", "card");
-    card.setAttribute("data-id", index)
-    let iTag = document.createElement("i");
-    iTag.setAttribute("class", `fa ${icon}`);
-    card.appendChild(iTag);
-    playingField.appendChild(card);
-  }
+    for (let [index, icon] of shuffledCardList.entries()) {
+        let card = document.createElement("li");
+        card.setAttribute("class", "card");
+        card.setAttribute("data-id", index);
+        let iTag = document.createElement("i");
+        iTag.setAttribute("class", `fa ${icon}`);
+        card.appendChild(iTag);
+        playingField.appendChild(card);
+    }
 
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -74,54 +74,54 @@ function shuffle(array) {
 
 let openCardList = [];
 
-function openCard () {
-  if(openCardList.length >= 2) {
-    return;
-  }
-  if(intervalToken === null) {
-    intervalToken = startTimer();
-  }
-  if(openCardList.length === 1) {
-    let secondCard = this;
-    if(preventDoubleClick(openCardList[0], secondCard)) {
-      return;
+function openCard() {
+    if (openCardList.length >= 2) {
+        return;
     }
-    incrementCounter();
-    if(checkMatch(openCardList[0], secondCard)) {
-      lockMatchingCards(openCardList[0]);
-      lockMatchingCards(secondCard);
-      openCardList = clearOpenCardList(openCardList);
-      endGame(cardList);
-      return;
-    } else {
-      removeEventListener();
-      markNotMatchingCard(secondCard);
-      markNotMatchingCard(openCardList[0]);
-      window.setTimeout(function() {
-        closeCard(secondCard);
-        closeCard(openCardList[0]);
-        openCardList = clearOpenCardList(openCardList);
-        registerEventListener();
-      }, 1000)
-      return;
+    if (intervalToken === null) {
+        intervalToken = startTimer();
     }
-  }
-  this.setAttribute("class", "card open show");
-  openCardList.push(this);
+    if (openCardList.length === 1) {
+        let secondCard = this;
+        if (preventDoubleClick(openCardList[0], secondCard)) {
+            return;
+        }
+        incrementCounter();
+        if (checkMatch(openCardList[0], secondCard)) {
+            lockMatchingCards(openCardList[0]);
+            lockMatchingCards(secondCard);
+            openCardList = clearOpenCardList(openCardList);
+            endGame(cardList);
+            return;
+        } else {
+            removeEventListener();
+            markNotMatchingCard(secondCard);
+            markNotMatchingCard(openCardList[0]);
+            window.setTimeout(function () {
+                closeCard(secondCard);
+                closeCard(openCardList[0]);
+                openCardList = clearOpenCardList(openCardList);
+                registerEventListener();
+            }, 1000);
+            return;
+        }
+    }
+    this.setAttribute("class", "card open show");
+    openCardList.push(this);
 }
 
 function checkMatch(firstCard, secondCard) {
-  if(firstCard.querySelector("i").getAttribute("class") !== secondCard.querySelector("i").getAttribute("class")){
-    return false;
-  }
-  return true;
+    if (firstCard.querySelector("i").getAttribute("class") !== secondCard.querySelector("i").getAttribute("class")) {
+        return false;
+    }
+    return true;
 }
 
 function preventDoubleClick(firstCard, secondCard) {
-  if(firstCard.getAttribute("data-id") === secondCard.getAttribute("data-id")) {
-    return true;
-  }
-  return false;
+    if (firstCard.getAttribute("data-id") === secondCard.getAttribute("data-id")) {
+        return true;
+    }
+    return false;
 }
 
 function lockMatchingCards(card) {
@@ -130,122 +130,119 @@ function lockMatchingCards(card) {
 }
 
 function clearOpenCardList(openCardList) {
-  openCardList = [];
-  return openCardList;
+    openCardList = [];
+    return openCardList;
 }
 
 function markNotMatchingCard(card) {
-  card.setAttribute("class", "card open show not-match");
+    card.setAttribute("class", "card open show not-match");
 }
 
 function closeCard(card) {
-  card.setAttribute("class", "card");
+    card.setAttribute("class", "card");
 }
 
 function registerEventListener() {
-  document.querySelectorAll("body > div > ul > li:not(.match)").forEach(
-    function(cardObject) {
-      cardObject.addEventListener("click", openCard);
-    }
-  );
+    document.querySelectorAll("body > div > ul > li:not(.match)").forEach(
+        function (cardObject) {
+            cardObject.addEventListener("click", openCard);
+        }
+    );
 }
 
 function removeEventListener() {
-  document.querySelectorAll("body > div > ul > li:not(.match)").forEach(
-    function(cardObject) {
-      cardObject.removeEventListener("click", openCard);
-    }
-  );
+    document.querySelectorAll("body > div > ul > li:not(.match)").forEach(
+        function (cardObject) {
+            cardObject.removeEventListener("click", openCard);
+        }
+    );
 }
 
 function endGame(cardList) {
-  if(cardList.length !== document.querySelectorAll("body > div > ul > li.match").length) {
-    return;
-  }
-  stopTimer(intervalToken);
-  removeEventListener();
-  winningNote();
+    if (cardList.length !== document.querySelectorAll("body > div > ul > li.match").length) {
+        return;
+    }
+    stopTimer(intervalToken);
+    removeEventListener();
+    winningNote();
 }
 
 function winningNote() {
-  let starRating = document.querySelectorAll("body > div > section.score-panel > ul > li:not([style*='display: none'])").length;
-  let playingTime = document.getElementsByClassName("timer")[0].textContent;
-  document.querySelector("span.playingTime").textContent = playingTime;
-  document.querySelector("span.starRating").textContent = starRating;
-  document.querySelector(".popup").style.display = "block";
-  registerPopupEvents();
+    let starRating = document.querySelectorAll("body > div > section.score-panel > ul > li:not([style*='display: none'])").length;
+    let playingTime = document.getElementsByClassName("timer")[0].textContent;
+    document.querySelector("span.playingTime").textContent = playingTime;
+    document.querySelector("span.starRating").textContent = starRating;
+    document.querySelector(".popup").style.display = "block";
+    registerPopupEvents();
 }
 
-function registerPopupEvents(){
-  document.querySelector("a.start-new").addEventListener("click", function() {
-    restartGame(cardList);
-    document.querySelector(".popup").style.display = "none";
-  });
-  document.querySelector("a.close").addEventListener("click", function() {
-  document.querySelector(".popup").style.display = "none";
-  });
+function registerPopupEvents() {
+    document.querySelector("a.start-new").addEventListener("click", function () {
+        restartGame(cardList);
+        document.querySelector(".popup").style.display = "none";
+    });
+    document.querySelector("a.close").addEventListener("click", function () {
+        document.querySelector(".popup").style.display = "none";
+    });
 }
 
 /*Moves Counter*/
 function incrementCounter() {
-  let counter = document.querySelector("span.moves");
-  counter.textContent = parseInt(counter.textContent) + 1;
-  updateStarRating(parseInt(counter.textContent));
+    let counter = document.querySelector("span.moves");
+    counter.textContent = parseInt(counter.textContent) + 1;
+    updateStarRating(parseInt(counter.textContent));
 }
 
 function updateStarRating(counter) {
-  if (counter === 11) {
-    document.querySelector("body > div > section > ul > li:nth-child(3)").style.display = "none";
-  }
-  if (counter === 21) {
-    document.querySelector("body > div > section > ul > li:nth-child(2)").style.display = "none";
-  }
-  if (counter === 25) {
-    document.querySelector("body > div > section > ul > li:nth-child(1)").style.display = "none";
-  }
+    if (counter === 11) {
+        document.querySelector("body > div > section > ul > li:nth-child(3)").style.display = "none";
+    }
+    if (counter === 21) {
+        document.querySelector("body > div > section > ul > li:nth-child(2)").style.display = "none";
+    }
 }
 
 /*Timer*/
 function startTimer() {
-  return window.setInterval(function(){
-    let timer = document.querySelector("span.timer");
-    timer.textContent = parseInt(timer.textContent) + 1;
-  }, 1000)
+    return window.setInterval(function () {
+        let timer = document.querySelector("span.timer");
+        timer.textContent = parseInt(timer.textContent) + 1;
+    }, 1000)
 }
 
 function stopTimer(intervalToken) {
-  window.clearInterval(intervalToken);
+    window.clearInterval(intervalToken);
 }
 
 /*Main Game Handling*/
 function restartGame(cardList) {
-  stopTimer(intervalToken);
-  intervalToken = null;
-  document.querySelector("span.timer").textContent  = 0;
-  document.querySelectorAll("body > div > section > ul > li").forEach(function(element){
-    element.style.display = 'inline-block';
-  });
-  document.querySelector("span.moves").textContent  = 0;
-  removeCards();
-  shuffledCardList = shuffle(cardList);
-  dealingOutCards(shuffledCardList);
-  registerEventListener();
+    stopTimer(intervalToken);
+    intervalToken = null;
+    document.querySelector("span.timer").textContent = 0;
+    document.querySelectorAll("body > div > section > ul > li").forEach(function (element) {
+        element.style.display = 'inline-block';
+    });
+    document.querySelector("span.moves").textContent = 0;
+    removeCards();
+    shuffledCardList = shuffle(cardList);
+    dealingOutCards(shuffledCardList);
+    registerEventListener();
 }
 
 function removeCards() {
-  elementList = document.querySelectorAll(".deck > li");
+    elementList = document.querySelectorAll(".deck > li");
 
-  if (elementList === null) {
-    return;
-  }
+    if (elementList === null) {
+        return;
+    }
 
-  elementList.forEach(function (element) {
-    element.remove();
-  })
+    elementList.forEach(function (element) {
+        element.remove();
+    })
 }
 
-(function() {
-  document.querySelector("i.fa-repeat").addEventListener('click', function() {
-    restartGame(cardList);
-  });
+(function () {
+    document.querySelector("i.fa-repeat").addEventListener('click', function () {
+        restartGame(cardList);
+    });
 })()
